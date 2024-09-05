@@ -1,12 +1,14 @@
 package com.ani.ws.global.handler
 
-import com.ani.ws.common.data.ChatDto
+import com.ani.ws.common.data.ChatRequest
+import com.ani.ws.common.data.ChatResponse
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.stereotype.Component
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
 import org.springframework.web.socket.WebSocketSession
 import org.springframework.web.socket.handler.TextWebSocketHandler
+import java.time.LocalDateTime
 
 @Component
 class WebSocketHandler(
@@ -22,12 +24,21 @@ class WebSocketHandler(
     }
 
     override fun handleTextMessage(session: WebSocketSession, message: TextMessage) {
-        val chatDto = objectMapper.readValue(message.payload, ChatDto::class.java)
+        val chatRequest = objectMapper.readValue(message.payload, ChatRequest::class.java)
 
-        sessions.map { unit -> unit.sendMessage(chatDto) }
+        sessions.map { unit -> unit.sendMessage(chatRequest) }
     }
 
-    private fun WebSocketSession.sendMessage(chatDto: ChatDto) =
-        TextMessage(objectMapper.writeValueAsString(chatDto))
+    private fun WebSocketSession.sendMessage(chatRequest: ChatRequest) {
+        val chatResponse = chatRequest.run {
+            ChatResponse(
+                message = message,
+                name = name,
+                createdAt = LocalDateTime.now()
+            )
+        }
+
+        TextMessage(objectMapper.writeValueAsString(chatResponse))
             .run(this::sendMessage)
+    }
 }

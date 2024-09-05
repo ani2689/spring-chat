@@ -1,7 +1,7 @@
 package com.ani.ws.domain.service
 
-import com.ani.ws.common.data.ChatDto
+import com.ani.ws.common.data.ChatResponse
 
 interface ChatService {
-    fun getChats(): List<ChatDto>
+    fun getChats(): List<ChatResponse>
 }
