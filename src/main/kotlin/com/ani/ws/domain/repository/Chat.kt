@@ -10,10 +10,10 @@ data class Chat(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     val name: String,
 
-    @Column
+    @Column(columnDefinition = "VARCHAR(255)")
     val message: String,
 
     @CreatedDate

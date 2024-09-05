@@ -1,0 +1,15 @@
+spring:
+  application:
+   name: chat
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_URL:localhost}:${DB_PORT:3306}/${DB_NAME:chat}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: ${DB_PW:1234}
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
