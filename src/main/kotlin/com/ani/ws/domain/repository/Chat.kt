@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 data class Chat(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long = 0,
 
     @Column
     val name: String,
@@ -17,5 +17,5 @@ data class Chat(
     val message: String,
 
     @CreatedDate
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime = LocalDateTime.now()
 )
