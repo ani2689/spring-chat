@@ -1,6 +1,6 @@
 package com.ani.ws.common.data
 
-data class ChatDto(
+data class ChatRequest(
     val name: String,
     val message: String
 )
